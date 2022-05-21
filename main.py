@@ -1,6 +1,18 @@
 testingMarkList = [("CS1", 45), ("CS1", 45), ("CS1", 90), ("CS2", 85), ("CS3", 95), ("CS4", 90), ("CS5", 80), ("CS6", 80), ("CS7", 45), ("CS7", 90), ("CS8", 85), ("CS9", 95)]
 
+#Contains student information in format[[personID, lastName, email, [markList]]]
+database = [
+            ["BobD", "Dylan", "bobd@EOU", [("CS1", 45), ("CS1", 45), ("CS1", 90), ("CS2", 85), ("CS3", 95), ("CS4", 90), ("CS5", 80), ("CS6", 80), ("CS7", 45), ("CS7", 90), ("CS8", 85), ("CS9", 95)]]
+            ]
+
 #SERVER
+def printMarks(unitMarkList):
+    for unitMark in unitMarkList:  
+        print(unitMark[0] + ": " + str(unitMark[1]))
+
+#TEST
+printMarks(testingMarkList)
+
 #Returns the average mark from unitMarkList
 def calculateCourseAverage(unitMarkList):
 	markSum = 0;
@@ -58,3 +70,60 @@ def evaluateQualification(personID, unitMarkList):
 		return str(personID) + ", " + str(courseAverage) + ", DOES NOT QUALIFY FOR HONORS STUDY!"
 
 print(evaluateQualification("bob", testingMarkList))
+
+def EOUStudentEvaluation(personID, lastName, email):
+    matchingEntry = False
+    for entry in database:
+        if entry[0] == personID and entry[1] == lastName and entry[2] == email:
+            matchingEntry = entry
+            break
+    if matchingEntry:
+        return(evaluateQualification(entry[0], entry[3]))
+    else:
+        return "No matching student found"
+        
+#CLIENT
+def main():
+    while True:
+        EOUStudent = input("Are you an EOU Student? (y/n): ")
+        if EOUStudent == "y" or EOUStudent == "n":
+            break
+        print("Invalid input")
+    if EOUStudent == "y":
+        #Use recorded data
+        personID = ""
+        lastName = ""
+        email = ""
+        while True:
+            print("Please enter personal details for verification")
+            personID = input("Person ID: ")
+            lastName = input("Last name: ")
+            email = input("EOU email: ")
+            valid = input("Are these details correct? (y/n)")
+            if valid == "y":
+                break
+                
+        #Server call
+        print(EOUStudentEvaluation(personID, lastName, email))
+    else:
+        #Enter new data
+        personID = input("Please enter your Person ID")
+        while True:
+            print("Please enter 12-30 unit codes and scores, and enter 'done' when complete")
+            unitMarkList = []
+            while True:
+                unitCode = input("Unit code: ")
+                if unitCode == "done":
+                    break
+                #TODO: Verify input is 0-100
+                unitMark = int(input("Mark: "))
+                unitMarkList.append((unitCode, unitMark))
+                if len(unitMarkList) == 30:
+                    print("Maximum of 30 marks, evaluating using provided marks")
+                    break
+            if len(unitMarkList) >= 12:
+		#Server call
+                print(evaluateQualification(personID, unitMarkList))
+                break
+            print("Insufficent marks, at least 12 are required")
+main()
