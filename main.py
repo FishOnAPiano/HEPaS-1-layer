@@ -1,11 +1,11 @@
-testingMarkList = [("CS1", 45), ("CS1", 45), ("CS1", 90), ("CS2", 85), ("CS3", 95), ("CS4", 90), ("CS5", 80), ("CS6", 80), ("CS7", 45), ("CS7", 90), ("CS8", 85), ("CS9", 95)]
-
+testingMarkListTwelve = [("CS1", 45), ("CS1", 45), ("CS1", 90), ("CS2", 85), ("CS3", 95), ("CS4", 90), ("CS5", 80), ("CS6", 80), ("CS7", 45), ("CS7", 90), ("CS8", 85), ("CS9", 95)]
+testingMarkListThirty = [("CS1", 45), ("CS1", 45), ("CS1", 90), ("CS2", 85), ("CS3", 95), ("CS4", 90), ("CS5", 80), ("CS6", 80), ("CS7", 45), ("CS7", 90), ("CS8", 85), ("CS9", 95), ("CS10", 12), ("CS10", 40), ("CS10", 65), ("CS11", 65), ("CS12", 66), ("CS13", 67), ("CS14", 68), ("CS15", 69), ("CS16", 70), ("CS17", 71), ("CS18", 72), ("CS19", 73), ("CS19", 74), ("CS20", 75), ("CS21", 76), ("CS22", 77), ("CS23", 78), ("CS24", 79)]
 #Contains student information in format[[personID, lastName, email, [markList]]]
 database = [
             #Six failures
             ["SixF", "Fails", "sixf@EOU", [("CS1", 30), ("CS1", 20), ("CS1", 55), ("CS2", 12), ("CS2", 30), ("CS2", 60), ("CS3", 10), ("CS3", 20), ("CS3", 51), ("CS4", 55), ("CS5", 70), ("CS6", 60)]],
             #Course Average >= 70
-            ["BobD", "Dylan", "bobd@EOU", testingMarkList],
+            ["BobD", "Dylan", "bobd@EOU", testingMarkListTwelve],
             #Course Average >= 65, Best eight average >= 80
             ["EightQ", "Qualified", "eightq@EOU", [("CS1", 45), ("CS1", 50), ("CS2", 49), ("CS2", 55), ("CS3", 70), ("CS4", 80), ("CS5", 90), ("CS6", 80), ("CS7", 95), ("CS8", 85), ("CS9", 50), ("CS10", 90)]],
             #Course average >= 60, Best eight average >= 80
@@ -15,7 +15,6 @@ database = [
             #Course average < 60
             ["NoC", "Chance", "noc@EOU", [("CS1", 10), ("CS1", 51), ("CS2", 10), ("CS2", 55), ("CS3", 55), ("CS4", 55), ("CS5", 55), ("CS6", 55), ("CS7", 55), ("CS8", 55), ("CS9", 50), ("CS10", 55)]],
             ]
-            
 
 #SERVER
 def printMarks(unitMarkList):
@@ -23,8 +22,11 @@ def printMarks(unitMarkList):
         print(unitMark[0] + ": " + str(unitMark[1]))
 
 #TEST successful printing 12 marks
-printMarks(testingMarkList)
-#TODO successful printing 30 marks
+print("Printing 12 marks")
+printMarks(testingMarkListTwelve)
+#TEST successful printing 30 marks
+print("Printing 30 marks")
+printMarks(testingMarkListThirty)
 
 #Returns the average mark from unitMarkList
 def calculateCourseAverage(unitMarkList):
@@ -36,8 +38,11 @@ def calculateCourseAverage(unitMarkList):
 	return markAverage
 
 #TEST course average successful calc 12 marks
-print("Course Average: " + str(calculateCourseAverage(testingMarkList)) + "\n")
-#TODO successful average calc 30 marks
+print("Course average for 12 marks")
+print("Course Average: " + str(calculateCourseAverage(testingMarkListTwelve)) + "\n")
+#TEST successful average calc 30 marks
+print("Course average for 30 marks")
+print("Course Average: " + str(calculateCourseAverage(testingMarkListThirty)) + "\n")
 
 #Returns an average mark generated from the 8 highest scores in unitMarkList
 def calculateBestEightAverage(unitMarkList):
@@ -60,8 +65,11 @@ def calculateBestEightAverage(unitMarkList):
 	return markAverage
 
 #TEST Best eight average successful calc 12 marks
-print("Best Eight Average: " + str(calculateBestEightAverage(testingMarkList)) + "\n")
-#TODO test best 8 30 marks
+print("Best 8 average for 12 marks")
+print("Best Eight Average: " + str(calculateBestEightAverage(testingMarkListTwelve)) + "\n")
+#TEST Best eight average for 30 marks
+print("Best 8 average for 30 marks")
+print("Best Eight Average: " + str(calculateBestEightAverage(testingMarkListThirty)) + "\n")
 
 #Returns the response string that matches how qualified for honors study a student with the provided dataset is
 def evaluateQualification(personID, unitMarkList):
@@ -89,7 +97,7 @@ print("Testing with six fails")
 print(evaluateQualification(database[0][0], database[0][3]))
 #test courseAverage >= 70
 print("Testing with course average >= 70")
-print(evaluateQualification("bob", testingMarkList))
+print(evaluateQualification(database[1][0], database[1][3]))
 #test courseAverage >= 65 and best eight average >= 80
 print("Testing with course average >= 65 and best eight average >= 80")
 print(evaluateQualification(database[2][0], database[2][3]))
