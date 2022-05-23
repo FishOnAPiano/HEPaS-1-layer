@@ -16,14 +16,6 @@ database = [
             ["NoC", "Chance", "noc@EOU", [("CS1", 10), ("CS1", 51), ("CS2", 10), ("CS2", 55), ("CS3", 55), ("CS4", 55), ("CS5", 55), ("CS6", 55), ("CS7", 55), ("CS8", 55), ("CS9", 50), ("CS10", 55)]],
             ]
             
-"""
-	elif courseAverage >= 60 and bestEightAverage >= 80:
-		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE GOOD CHANCE! Need further assessment!"
-	elif courseAverage >= 60 and bestEightAverage < 80:
-		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE A CHANCE! Must be carefully reassessed and get the coordinator's permission!"
-	else:
-		return str(personID) + ", " + str(courseAverage) + ", DOES NOT QUALIFY FOR HONORS STUDY!"
-"""
 
 #SERVER
 def printMarks(unitMarkList):
@@ -80,17 +72,17 @@ def evaluateQualification(personID, unitMarkList):
 		if unitMarkTuple[1] < 50:
 			numFails += 1
 	if numFails >= 6:
-		return str(personID) + ", " + str(courseAverage) + ", with 6 or more Fails! DOES NOT QUALIFY FOR HONORS STUDY!A"
+		return str(personID) + ", " + str(courseAverage) + ", with 6 or more Fails! DOES NOT QUALIFY FOR HONORS STUDY!"
 	elif courseAverage >= 70:
-		return str(personID) + ", " + str(courseAverage) + ", QUALIFIED FOR HONOURS STUDY!B"
+		return str(personID) + ", " + str(courseAverage) + ", QUALIFIED FOR HONOURS STUDY!"
 	elif courseAverage >= 65 and bestEightAverage >= 80:
-		return str(personID) + ", " + str(courseAverage) + ", QUALIFIED FOR HONOURS STUDY!C"
+		return str(personID) + ", " + str(courseAverage) + ", QUALIFIED FOR HONOURS STUDY!"
 	elif courseAverage >= 60 and bestEightAverage >= 80:
-		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE GOOD CHANCE! Need further assessment!D"
+		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE GOOD CHANCE! Need further assessment!"
 	elif courseAverage >= 60 and bestEightAverage < 80:
-		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE A CHANCE! Must be carefully reassessed and get the coordinator's permission!E"
+		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE A CHANCE! Must be carefully reassessed and get the coordinator's permission!"
 	else:
-		return str(personID) + ", " + str(courseAverage) + ", DOES NOT QUALIFY FOR HONORS STUDY!F"
+		return str(personID) + ", " + str(courseAverage) + ", DOES NOT QUALIFY FOR HONORS STUDY!"
 
 #TEST six fails
 print("Testing with six fails")
