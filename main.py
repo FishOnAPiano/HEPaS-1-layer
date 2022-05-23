@@ -2,16 +2,37 @@ testingMarkList = [("CS1", 45), ("CS1", 45), ("CS1", 90), ("CS2", 85), ("CS3", 9
 
 #Contains student information in format[[personID, lastName, email, [markList]]]
 database = [
-            ["BobD", "Dylan", "bobd@EOU", [("CS1", 45), ("CS1", 45), ("CS1", 90), ("CS2", 85), ("CS3", 95), ("CS4", 90), ("CS5", 80), ("CS6", 80), ("CS7", 45), ("CS7", 90), ("CS8", 85), ("CS9", 95)]]
+            #Six failures
+            ["SixF", "Fails", "sixf@EOU", [("CS1", 30), ("CS1", 20), ("CS1", 55), ("CS2", 12), ("CS2", 30), ("CS2", 60), ("CS3", 10), ("CS3", 20), ("CS3", 51), ("CS4", 55), ("CS5", 70), ("CS6", 60)]],
+            #Course Average >= 70
+            ["BobD", "Dylan", "bobd@EOU", testingMarkList],
+            #Course Average >= 65, Best eight average >= 80
+            ["EightQ", "Qualified", "eightq@EOU", [("CS1", 45), ("CS1", 50), ("CS2", 49), ("CS2", 55), ("CS3", 70), ("CS4", 80), ("CS5", 90), ("CS6", 80), ("CS7", 95), ("CS8", 85), ("CS9", 50), ("CS10", 90)]],
+            #Course average >= 60, Best eight average >= 80
+            ["ChanceF", "Further", "chancef@EOU", [("CS1", 10), ("CS1", 50), ("CS2", 10), ("CS2", 55), ("CS3", 70), ("CS4", 80), ("CS5", 90), ("CS6", 80), ("CS7", 95), ("CS8", 85), ("CS9", 50), ("CS10", 90)]],
+            #Course Average >= 60, Best eight average < 80
+            ["RheaS", "Sess", "rheas@EOU", [("CS1", 45), ("CS1", 50), ("CS2", 49), ("CS2", 55), ("CS3", 70), ("CS4", 80), ("CS5", 90), ("CS6", 80), ("CS7", 80), ("CS8", 85), ("CS9", 49), ("CS10", 51)]],
+            #Course average < 60
+            ["NoC", "Chance", "noc@EOU", [("CS1", 10), ("CS1", 51), ("CS2", 10), ("CS2", 55), ("CS3", 55), ("CS4", 55), ("CS5", 55), ("CS6", 55), ("CS7", 55), ("CS8", 55), ("CS9", 50), ("CS10", 55)]],
             ]
+            
+"""
+	elif courseAverage >= 60 and bestEightAverage >= 80:
+		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE GOOD CHANCE! Need further assessment!"
+	elif courseAverage >= 60 and bestEightAverage < 80:
+		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE A CHANCE! Must be carefully reassessed and get the coordinator's permission!"
+	else:
+		return str(personID) + ", " + str(courseAverage) + ", DOES NOT QUALIFY FOR HONORS STUDY!"
+"""
 
 #SERVER
 def printMarks(unitMarkList):
     for unitMark in unitMarkList:  
         print(unitMark[0] + ": " + str(unitMark[1]))
 
-#TEST
+#TEST successful printing 12 marks
 printMarks(testingMarkList)
+#TODO successful printing 30 marks
 
 #Returns the average mark from unitMarkList
 def calculateCourseAverage(unitMarkList):
@@ -22,8 +43,9 @@ def calculateCourseAverage(unitMarkList):
 		markAverage = markSum/len(unitMarkList)
 	return markAverage
 
-#TEST
+#TEST course average successful calc 12 marks
 print("Course Average: " + str(calculateCourseAverage(testingMarkList)) + "\n")
+#TODO successful average calc 30 marks
 
 #Returns an average mark generated from the 8 highest scores in unitMarkList
 def calculateBestEightAverage(unitMarkList):
@@ -45,8 +67,9 @@ def calculateBestEightAverage(unitMarkList):
 	markAverage = markSum/(8-bestEight.count(-1))
 	return markAverage
 
-#TEST
+#TEST Best eight average successful calc 12 marks
 print("Best Eight Average: " + str(calculateBestEightAverage(testingMarkList)) + "\n")
+#TODO test best 8 30 marks
 
 #Returns the response string that matches how qualified for honors study a student with the provided dataset is
 def evaluateQualification(personID, unitMarkList):
@@ -57,19 +80,37 @@ def evaluateQualification(personID, unitMarkList):
 		if unitMarkTuple[1] < 50:
 			numFails += 1
 	if numFails >= 6:
-		return str(personID) + ", " + str(courseAverage) + ", with 6 or more Fails! DOES NOT QUALIFY FOR HONORS STUDY!"
+		return str(personID) + ", " + str(courseAverage) + ", with 6 or more Fails! DOES NOT QUALIFY FOR HONORS STUDY!A"
 	elif courseAverage >= 70:
-		return str(personID) + ", " + str(courseAverage) + ", QUALIFIED FOR HONOURS STUDY!"
+		return str(personID) + ", " + str(courseAverage) + ", QUALIFIED FOR HONOURS STUDY!B"
 	elif courseAverage >= 65 and bestEightAverage >= 80:
-		return str(personID) + ", " + str(courseAverage) + ", QUALIFIED FOR HONOURS STUDY!"
+		return str(personID) + ", " + str(courseAverage) + ", QUALIFIED FOR HONOURS STUDY!C"
 	elif courseAverage >= 60 and bestEightAverage >= 80:
-		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE GOOD CHANCE! Need further assessment!"
+		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE GOOD CHANCE! Need further assessment!D"
 	elif courseAverage >= 60 and bestEightAverage < 80:
-		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE A CHANCE! Must be carefully reassessed and get the coordinator's permission!"
+		return str(personID) + ", " + str(courseAverage) + ", " + str(bestEightAverage) + ", MAY HAVE A CHANCE! Must be carefully reassessed and get the coordinator's permission!E"
 	else:
-		return str(personID) + ", " + str(courseAverage) + ", DOES NOT QUALIFY FOR HONORS STUDY!"
+		return str(personID) + ", " + str(courseAverage) + ", DOES NOT QUALIFY FOR HONORS STUDY!F"
 
+#TEST six fails
+print("Testing with six fails")
+print(evaluateQualification(database[0][0], database[0][3]))
+#test courseAverage >= 70
+print("Testing with course average >= 70")
 print(evaluateQualification("bob", testingMarkList))
+#test courseAverage >= 65 and best eight average >= 80
+print("Testing with course average >= 65 and best eight average >= 80")
+print(evaluateQualification(database[2][0], database[2][3]))
+#test courseAverage >= 60 and best eight average >= 80
+print("Testing with course average >= 60 and best eight average >= 80")
+print(evaluateQualification(database[3][0], database[3][3]))
+#test courseAverage >= 60 and best eight average < 80
+print("Testing with course average >= 60 and best eight average >= 80")
+print(evaluateQualification(database[4][0], database[4][3]))
+#test courseAverage < 60
+print("Testing with course average < 60")
+print(evaluateQualification(database[5][0], database[5][3]))
+
 
 def EOUStudentEvaluation(personID, lastName, email):
     matchingEntry = False
@@ -80,7 +121,7 @@ def EOUStudentEvaluation(personID, lastName, email):
     if matchingEntry:
         return(evaluateQualification(entry[0], entry[3]))
     else:
-        return "No matching student found"
+        return "Verification details do not match recorded values for an EOU student"
         
 #CLIENT
 def main():
@@ -107,7 +148,7 @@ def main():
         print(EOUStudentEvaluation(personID, lastName, email))
     else:
         #Enter new data
-        personID = input("Please enter your Person ID")
+        personID = input("Please enter your Person ID: ")
         while True:
             print("Please enter 12-30 unit codes and scores, and enter 'done' when complete")
             unitMarkList = []
@@ -115,11 +156,19 @@ def main():
                 unitCode = input("Unit code: ")
                 if unitCode == "done":
                     break
-                #TODO: Verify input is 0-100
-                unitMark = int(input("Mark: "))
+                
+                unitMark = -1
+                while True:
+                    try:
+                        unitMark = int(input("Mark: "))
+                        if unitMark >= 0 and unitMark <= 100:
+                            break
+                    except ValueError:
+                        pass
+                    print("Invalid mark, please enter a number between 0 and 100")
                 unitMarkList.append((unitCode, unitMark))
                 if len(unitMarkList) == 30:
-                    print("Maximum of 30 marks, evaluating using provided marks")
+                    print("Maximum of 30 marks reached, evaluating using provided marks")
                     break
             if len(unitMarkList) >= 12:
 		#Server call
